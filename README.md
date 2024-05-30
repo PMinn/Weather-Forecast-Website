@@ -1,1 +1,9 @@
 # Weather-Forecast-Website
+
+## 依賴套件
+    pip install requests
+
+## 設定環境變數
+新增檔案 weather_forecast/weather/env.py
+
+    cwa_apikey = "<氣象開放平台的 apikey>"
