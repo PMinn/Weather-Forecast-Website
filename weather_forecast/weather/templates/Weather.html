@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>天氣</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -24,6 +25,18 @@
             color: #ac34db;
             font-weight: bolder;
             text-align: left;
+        }
+
+        h4 {
+            color: #742CB6;
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .space {
+            margin-top: 25px;
+            margin-bottom: 10px;
         }
 
         .glass-card {
@@ -51,10 +64,16 @@
             text-align: center;
         }
 
-        .glass-card p {
+        .glass-card i, p {
             color: #2d0255;
             font-weight: bolder;
             font-size: xx-large;
+        }
+
+        .glass-card small {
+            color: #2d0255;
+            font-weight: bolder;
+            font-size: x-large;
         }
     </style>
 </head>
@@ -62,7 +81,7 @@
 <body>
     <div class="container">
         <div class="row justify-content-center">
-            <h1 class="col-8">Weather Forecast</h1>
+            <h1 class="col-6">Weather Forecast</h1>
             <div class="col-4">
                 <select class="form-select mb-3" aria-label="Default select example">
                     <option selected>選擇城市</option>
@@ -90,11 +109,15 @@
                     <option value="lienchiang">連江縣</option>
                 </select>
             </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-light" onclick="">登入</button>
+                <!-- 登入與登出按鈕 -->
+            </div>
         </div>
 
-        <div class="row justify-content-center">
+        <div class="space row justify-content-center">
             <div class="glass-card col-5">
-                <h4>天氣</h4>
+                <h4>現在溫度</h4>
                 <div class="row">
                     <div class="col-6">
                         <h5>氣溫</h5>
@@ -109,24 +132,98 @@
                 </div>
             </div>
             <div class="glass-card col-5">
-                <h4>天文</h4>
+                <h4>現在天氣</h4>
                 <div class="row">
                     <div class="col-6">
                         <h5>降雨機率</h5>
                         <p>100%</p>
-                        <!-- <p>放置氣溫資訊</p> -->
+                        <!-- <p>放置降雨機率</p> -->
                     </div>
                     <div class="col-6">
                         <h5>紫外線</h5>
                         <p>低量級</p>
                         <!-- 0~2低量、3~5中量、6~7高量、8~10過量、11~危險 -->
-                        <!-- <p>放置氣溫資訊</p> -->
+                        <!-- <p>放置紫外線</p> -->
                     </div>
                 </div>
             </div>
         </div>
-        <div class="justify-content-center">
-            
+
+        <div class="row justify-content-center">
+            <div class="glass-card col-5">
+                <h4>今日</h4>
+                <div class="row">
+                    <div class="col-6">
+                        <i class="bi bi-thermometer-half"></i>
+                        <p>19~30℃</p>
+                        <!-- <p>放置今日溫度範圍</p> -->
+                    </div>
+                    <div class="col-6">
+                        <i class="bi bi-cloud"></i>
+                        <p>多雲</p>
+                        <!-- 晴天<i class="bi bi-brightness-high"></i>、陰天<i class="bi bi-cloud"></i>、雨天<i class="bi bi-cloud-rain"></i>、風大<i class="bi bi-wind"></i> -->
+                        <!-- <p>放置今日天氣情況</p> -->
+                    </div>
+                </div>
+            </div>
+            <div class="glass-card col-5">
+                <h4>明日</h4>
+                <div class="row">
+                    <div class="col-6">
+                        <i class="bi bi-thermometer-half"></i>
+                        <p>22~30℃</p>
+                        <!-- <p>放置明日溫度範圍</p> -->
+                    </div>
+                    <div class="col-6">
+                        <i class="bi bi-cloud"></i>
+                        <p>陰時多雲</p>
+                        <!-- 晴天<i class="bi bi-brightness-high"></i>、陰天<i class="bi bi-cloud"></i>、雨天<i class="bi bi-cloud-rain"></i>、風大<i class="bi bi-wind"></i> -->
+                        <!-- <p>放置明日天氣情況</p> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="space row justify-content-center">
+            <h4>一週預報</h4>
+            <div class="row glass-card col-10">
+                <div class="col-2">
+                    <h5>明天</h5>
+                    <p class="small">22~30℃</p>
+                    <i class="bi bi-brightness-high"></i>
+                    <!-- <p>放置溫度範圍、天氣情況</p> -->
+                </div>
+                <div class="col-2">
+                    <h5>後天</h5>
+                    <p class="small">22~30℃</p>
+                    <i class="bi bi-cloud"></i>
+                    <!-- <p>放置溫度範圍、天氣情況</p> -->
+                </div>
+                <div class="col-2">
+                    <h5>星期三</h5>
+                    <p class="small">22~30℃</p>
+                    <i class="bi bi-cloud"></i>
+                    <!-- <p>放置溫度範圍、天氣情況</p> -->
+                </div>
+                <div class="col-2">
+                    <h5>星期四</h5>
+                    <p class="small">22~30℃</p>
+                    <i class="bi bi-cloud-rain"></i>
+                    <!-- <p>放置溫度範圍、天氣情況</p> -->
+                </div>
+                <div class="col-2">
+                    <h5>星期五</h5>
+                    <p class="small">22~30℃</p>
+                    <i class="bi bi-wind"></i>
+                    <!-- <p>放置溫度範圍、天氣情況</p> -->
+                </div>
+                <div class="col-2">
+                    <h5>星期六</h5>
+                    <p class="small">22~30℃</p>
+                    <i class="bi bi-brightness-high"></i>
+                    <!-- <p>放置溫度範圍、天氣情況</p> -->
+                </div>
+            </div>
         </div>
     </div>
 </body>
