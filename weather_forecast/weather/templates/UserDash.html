@@ -1,11 +1,162 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>個人儀錶板</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <style>
+        body {
+            background: linear-gradient(90deg, #edc0bf 0, #c4caef 58%) no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #ac34db;
+            font-weight: bolder;
+            text-align: left;
+        }
+
+        h4 {
+            color: #742CB6;
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .space {
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 10px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-align: center;
+        }
+
+        .glass-card label {
+            color: #742CB6;
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .glass-card h5 {
+            color: #742CB6;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .glass-card i,
+        p {
+            color: #2d0255;
+            font-weight: bolder;
+            font-size: xx-large;
+        }
+
+        img {
+            width: 50%;
+            height: auto;
+        }
+    </style>
 </head>
+
 <body>
-    
+    <div class="container">
+        <div class="row justify-content-center align-items-center space">
+            <h1 class="col-10">個人儀表板</h1>
+            <button type="button" class="btn btn-light col-1">回首頁</button>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="glass-card col-7">
+                <div class="row">
+                    <div class="col-6">
+                        <img class="rounded-circle" src="https://picsum.photos/id/684/50/50" alt="Profile Image">
+                        <!-- 顯示使用者相片 -->
+                    </div>
+                    <div class="col-6 d-flex align-items-center">
+                        <h4>UserName</h4>
+                        <!-- 顯示使用者名稱 -->
+                    </div>
+                </div>
+                <hr class="hr" />
+                <div class="space">
+                    <h4>預設顯示城市：</h4>
+                    <p>臺中市</p>
+                    <!-- 顯示預設城市設定值 -->
+                </div>
+            </div>
+            <div class="glass-card col-4">
+                <h4>個人資料修改</h4>
+                <form>
+                    <div class="mb-3">
+                        <label for="profilePicture" class="form-label">修改使用者相片</label>
+                        <input type="file" class="form-control" id="profilePicture">
+                    </div>
+                    <div class="mb-3">
+                        <label for="userName" class="form-label">修改使用者名稱</label>
+                        <input type="text" class="form-control" id="userName" placeholder="輸入新的使用者名稱">
+                    </div>
+                    <div class="mb-3">
+                        <label for="defaultDisplay" class="form-label">預設顯示城市</label>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>選擇城市</option>
+                            <option value="keelung">基隆市</option>
+                            <option value="taipei">臺北市</option>
+                            <option value="newtaipei">新北市</option>
+                            <option value="taoyuan">桃園市</option>
+                            <option value="hsinchucity">新竹市</option>
+                            <option value="hsinchucounty">新竹縣</option>
+                            <option value="miaoli">苗栗縣</option>
+                            <option value="taichung">臺中市</option>
+                            <option value="changhua">彰化縣</option>
+                            <option value="nantou">南投縣</option>
+                            <option value="yunlin">雲林縣</option>
+                            <option value="chiayicity">嘉義市</option>
+                            <option value="chiayicounty">嘉義縣</option>
+                            <option value="tainan">臺南市</option>
+                            <option value="kaohsiung">高雄市</option>
+                            <option value="pingtung">屏東縣</option>
+                            <option value="yilan">宜蘭縣</option>
+                            <option value="hualien">花蓮縣</option>
+                            <option value="taitung">臺東縣</option>
+                            <option value="penghu">澎湖縣</option>
+                            <option value="kinmen">金門縣</option>
+                            <option value="lienchiang">連江縣</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="newPassword" class="form-label">修改密碼</label>
+                        <input type="password" class="form-control" id="newPassword" placeholder="輸入新密碼">
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">確認新密碼</label>
+                        <input type="password" class="form-control" id="confirmPassword" placeholder="確認新密碼">
+                    </div>
+                    <button type="submit" class="btn btn-outline-dark">修改</button>
+                </form>
+            </div>
+        </div>
 </body>
+
 </html>
