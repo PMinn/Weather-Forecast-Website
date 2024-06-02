@@ -78,6 +78,23 @@
             font-weight: bolder;
             font-size: x-large;
         }
+
+        .round-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .round-button img {
+            width: 100%;
+            height: auto;
+        }
+
+        .dropdown-menu {
+            min-width: 10rem;
+        }
     </style>
 </head>
 
@@ -113,8 +130,20 @@
                 </select>
             </div>
             <div class="col-2">
-                <button type="button" class="btn btn-light" onclick="">登入</button>
-                <!-- 登入按鈕 -->
+                <div class="btn-group dropstart">
+                    <button type="button" class="btn btn-secondary dropdown-toggle round-button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://picsum.photos/id/684/50/50" alt="Profile Image">
+                        <!-- User頭貼 -->
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="UserDash.html">個人儀錶板</a></li>
+                        <!-- 跳轉到UserDash.html -->
+                        <li><a class="dropdown-item" href="Weather.html">登出</a></li>
+
+                    </ul>
+                </div>
+
             </div>
         </div>
 
