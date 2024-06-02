@@ -29,7 +29,8 @@
             font-weight: bold;
         }
 
-        button {
+        button,
+        .login {
             margin-top: 25px;
         }
 
@@ -49,23 +50,36 @@
 
 <body>
     <div class="glass-card">
-        <form>
-            <div class="form-group">
-                <label for="name">使用者名稱</label>
-                <input type="text" class="form-control" id="name" placeholder="請輸入使用者名稱">
+        {% if success_signup_msg %}
+            <div class="alert alert-success" role="alert">
+                {{ success_signup_msg }}
             </div>
-            <div class="form-group">
-                <label for="Email">電子郵件</label>
-                <input type="email" class="form-control" id="Email" aria-describedby="emailHelp" placeholder="請輸入電子郵件">
-            </div>
-            <div class="form-group">
-                <label for="Password">密碼</label>
-                <input type="password" class="form-control" id="Password" placeholder="請輸入密碼">
-            </div>
-            <button type="submit" class="btn btn-light">註冊新帳號</button>
-        </form>
-        <button type="button" class="btn btn-outline-secondary">已經有帳號？請登入</button>
-        <!-- 跳轉到Login.html -->
+        {% else %}
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">使用者名稱</label>
+                    {{ signup_form.username }}
+                </div>
+                <div class="form-group">
+                    <label for="Email">電子郵件</label>
+                    {{ signup_form.email }}
+                </div>
+                <div class="form-group">
+                    <label for="Password">密碼</label>
+                    {{ signup_form.password }}
+                </div>
+                {% if signup_msg %}
+                <div class="alert alert-success" role="alert">
+                    {{ signup_msg }}
+                </div>
+                {% endif %}
+                
+                <button type="submit" class="btn btn-light">註冊新帳號</button>
+            </form>
+            <a class="btn btn-outline-secondary login" href="{% url 'login' %}">已經有帳號？請登入</a>
+            <!-- 跳轉到Login.html -->
+        {% endif %}
     </div>
 </body>
 
