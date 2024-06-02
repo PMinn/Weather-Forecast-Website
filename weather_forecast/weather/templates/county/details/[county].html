@@ -4,13 +4,15 @@
 
 {% block styles %}
 <style>
-    body {
+ body {
         background: linear-gradient(90deg, #edc0bf 0, #c4caef 58%) no-repeat center center fixed;
         background-size: cover;
-        height: 100vh;
+        min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
+        margin: 0;
+        padding: 0;
     }
 
     h1 {
@@ -73,10 +75,10 @@
 
 {% block content %}
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center align-items-center mb-4 space">
         <h1 class="col-6">Weather Forecast</h1>
         <div class="col-4">
-            <select class="form-select mb-3" id="changeCountySelect">
+            <select class="form-select" id="changeCountySelect">
                 {% for county in counties %}
                     <option value="{{county}}" 
                         {% if county == pageCounty %}
