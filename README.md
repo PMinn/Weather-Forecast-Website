@@ -9,3 +9,5 @@
 新增檔案 weather_forecast/weather/env.py
 
     cwa_apikey = "<氣象開放平台的 apikey>"
+
+pip install pillow

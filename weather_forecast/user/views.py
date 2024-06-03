@@ -3,8 +3,10 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.template import loader
 from django.contrib import auth
-from .forms import LoginForm, SignupForm
+from .forms import LoginForm, SignupForm, UpdateUserProfileForm
 from django.contrib.auth.models import User
+from .models import UserProfile
+from django import forms
 
 # Create your views here.
 
@@ -43,6 +45,42 @@ def login(request):
         return render(request, 'login.html', context)
     else:
         print('Error on request (not GET/POST)')
+
+
+def dashboard(request):
+    if request.user.is_authenticated:
+        if request.method == 'GET':
+            user, _ = UserProfile.objects.get_or_create(user=request.user)
+            form = UpdateUserProfileForm()
+            print(form)
+            return render(request, 'dashboard.html', {'form': form, 'user': user})
+        elif request.method == 'POST':
+            form = UpdateUserProfileForm(request.POST, request.FILES)
+            if form.is_valid():
+                userProfile = UserProfile.objects.get(user=request.user)
+                user = userProfile.user
+                needSave = False
+                if form.cleaned_data['avatar']:
+                    userProfile.avatar = form.cleaned_data['avatar']
+                    needSave = True
+                if form.cleaned_data['username'] != '':
+                    user.username = form.cleaned_data['username']
+                    needSave = True
+                if form.cleaned_data['defaultCounty'] != '':
+                    userProfile.defaultCounty = form.cleaned_data['defaultCounty']
+                    needSave = True
+                if form.cleaned_data['password'] != '' and form.cleaned_data['password_confirm'] != '' and form.cleaned_data['password'] == form.cleaned_data['password_confirm']:
+                    user.set_password(form.cleaned_data['password'])
+                    needSave = True
+                if needSave:
+                    user.save()
+                    userProfile.save()
+                form = UpdateUserProfileForm()
+                return render(request, 'dashboard.html', {'form': form, 'user': userProfile})
+            else:
+                return render(request, 'dashboard.html', {'form': form, 'user': user, 'err_message': '表單驗證錯誤'})
+    else:
+        return redirect('/login')
 
 
 def signup(request):

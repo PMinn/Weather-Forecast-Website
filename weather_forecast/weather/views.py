@@ -5,6 +5,8 @@ from . import env
 import requests
 from datetime import datetime, timezone, timedelta, date
 import math
+from django.contrib.auth.models import User
+from user.models import UserProfile
 
 weekdayNames = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"]
 
@@ -99,6 +101,10 @@ def county_details(request, county):
         "weatherForecast": [WeatherForecast(i) for i in range(7)],
         "counties": map(lambda x: x['locationName'], json['cwaopendata']['dataset']['location'])
     }
+    if request.user.is_authenticated:
+        # user = User.objects.get(username=request.user.username)
+        data['user'], _ = UserProfile.objects.get_or_create(user=request.user)
+        # data['user'] = request.user
     for location in json['cwaopendata']['dataset']['location']:
         if location['locationName'] == county:
             weatherElement = location['weatherElement']
