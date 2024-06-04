@@ -21,6 +21,7 @@ def login(request):
         return render(request, 'login.html', context)
     elif request.method == "POST":
         login_form = LoginForm(request.POST)
+        context = {}
         if login_form.is_valid():
             username = login_form.cleaned_data['username']
             password = login_form.cleaned_data['password']
@@ -29,15 +30,11 @@ def login(request):
                 auth.login(request, user)
                 return redirect('/')
             else:
-                err_login_msg = 'Login failed (user id/passworld not correct)'
+                context['err_login_msg'] = '登入失敗，請檢查帳號密碼'
         else:
-            err_login_msg = 'Login error (login form is not valid)'
+            context['err_login_msg'] = '登入失敗，請檢查帳號密碼'
 
-        # login fail
-        context = {
-            'login_form': login_form,
-            'err_login_msg': err_login_msg
-        }
+        context['login_form'] = login_form
         return render(request, 'login.html', context)
     else:
         print('Error on request (not GET/POST)')
@@ -56,26 +53,37 @@ def dashboard(request):
             if form.is_valid():
                 userProfile = UserProfile.objects.get(user=request.user)
                 user = userProfile.user
-                needSave = False
+                context = {}
+                success_fields = []
+                error_fields = []
                 if form.cleaned_data['avatar']:
                     userProfile.avatar = form.cleaned_data['avatar']
-                    needSave = True
+                    success_fields.append('相片')
                 if form.cleaned_data['username'] != '' and form.cleaned_data['username'] != user.username:
                     user.username = form.cleaned_data['username']
-                    needSave = True
+                    success_fields.append('名稱')
                 if form.cleaned_data['defaultCounty'] != '' and form.cleaned_data['defaultCounty'] != userProfile.defaultCounty:
                     userProfile.defaultCounty = form.cleaned_data['defaultCounty']
-                    needSave = True
-                if form.cleaned_data['password'] != '' and form.cleaned_data['password_confirm'] != '' and form.cleaned_data['password'] == form.cleaned_data['password_confirm']:
-                    user.set_password(form.cleaned_data['password'])
-                    needSave = True
-                if needSave:
+                    success_fields.append('預設顯示城市')
+                if form.cleaned_data['password'] != '' or form.cleaned_data['password_confirm'] != '':
+                    if form.cleaned_data['password'] == form.cleaned_data['password_confirm']:
+                        user.set_password(form.cleaned_data['password'])
+                        success_fields.append('密碼')
+                    else:
+                        error_fields.append('密碼不一致')
+                if success_fields.__len__() > 0:
                     user.save()
                     userProfile.save()
-                form = UpdateUserProfileForm()
-                form.fields['username'].initial = user.username
-                form.fields['defaultCounty'].initial = userProfile.defaultCounty
-                return render(request, 'dashboard.html', {'form': form, 'user': userProfile, 'success_message': '更新成功'})
+                    context['success_message'] = f'更新成功({
+                        ", ".join(success_fields)})'
+                if error_fields.__len__() > 0:
+                    context['err_message'] = f'更新失敗({", ".join(error_fields)})'
+                renderForm = UpdateUserProfileForm()
+                renderForm.fields['username'].initial = user.username
+                renderForm.fields['defaultCounty'].initial = userProfile.defaultCounty
+                context['form'] = renderForm
+                context['user'] = userProfile
+                return render(request, 'dashboard.html', context)
             else:
                 return render(request, 'dashboard.html', {'form': form, 'user': user, 'err_message': '表單驗證錯誤'})
     else:
@@ -104,12 +112,14 @@ def signup(request):
             # first_name
             # last_name
             user.save()
+            userProfile = UserProfile(user=user)
+            userProfile.save()
             context = {
                 'success_signup_msg': '註冊成功，請點選登入',
             }
             return render(request, 'signup.html', context)
         else:
-            err_signup_msg = 'signup error (signup form is not valid)'
+            err_signup_msg = '註冊失敗，請填入有效的帳號密碼'
 
         # signup fail
         context = {

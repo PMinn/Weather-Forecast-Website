@@ -30,7 +30,8 @@
         }
 
         button,
-        .login {
+        .login,
+        .alert{
             margin-top: 25px;
         }
 
@@ -54,6 +55,7 @@
             <div class="alert alert-success" role="alert">
                 {{ success_signup_msg }}
             </div>
+            <a class="btn btn-outline-secondary login" href="{% url 'login' %}">登入</a>
         {% else %}
             <form method="post">
                 {% csrf_token %}
@@ -79,6 +81,11 @@
             </form>
             <a class="btn btn-outline-secondary login" href="{% url 'login' %}">已經有帳號？請登入</a>
             <!-- 跳轉到Login.html -->
+            {% if err_signup_msg %}
+                <div class="alert alert-danger" role="alert">
+                    {{ err_signup_msg }}
+                </div>
+            {% endif %}
         {% endif %}
     </div>
 </body>

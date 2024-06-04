@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from django.template import loader
 from . import env
 import requests
@@ -106,7 +106,8 @@ def county_details(request, county):
         "counties": map(lambda x: x['locationName'], json['cwaopendata']['dataset']['location'])
     }
     if request.user.is_authenticated:
-        data['userProfile'], _ = UserProfile.objects.get_or_create(user=request.user)
+        data['userProfile'], _ = UserProfile.objects.get_or_create(
+            user=request.user)
     for location in json['cwaopendata']['dataset']['location']:
         if location['locationName'] == county:
             weatherElement = location['weatherElement']
@@ -141,4 +142,4 @@ def county_details(request, county):
                     data['weather'] = weatherDataProcessing(weatherElement)
                     isSuccess = True
                     return HttpResponse(template.render(data, request))
-    raise ValueError('County not found')
+    return HttpResponseNotFound(loader.get_template('404.html').render())

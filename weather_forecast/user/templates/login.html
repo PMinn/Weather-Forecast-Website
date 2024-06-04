@@ -23,7 +23,8 @@
     }
 
     button,
-    .signup {
+    .signup,
+    .alert {
         margin-top: 25px;
     }
 
@@ -61,6 +62,11 @@
         </form>
         <a class="btn btn-outline-secondary signup" href="{% url 'signup' %}">沒有帳號？請註冊</a>
         <!-- 跳轉到SignUp.html -->
+        {% if err_login_msg %}
+            <div class="alert alert-danger" role="alert">
+                {{ err_login_msg }}
+            </div>
+        {% endif %}
     {% endif %}
 </div>
 {% endblock %}
