@@ -1,5 +1,6 @@
 from django import forms
 from .models import UserProfile
+from .counties import counties
 
 
 class LoginForm(forms.Form):
@@ -72,14 +73,14 @@ class UpdateUserProfileForm(forms.Form):
         required=False
     )
     defaultCounty = forms.CharField(
+        required=False,
         max_length=10,
-        widget=forms.TextInput(
+        widget=forms.Select(
+            choices=map(lambda x: (x, x), counties),
             attrs={
-                'placeholder': '請輸入縣市',
                 'class': 'form-control'
             }
-        ),
-        required=False
+        )
     )
     password = forms.CharField(
         max_length=20,

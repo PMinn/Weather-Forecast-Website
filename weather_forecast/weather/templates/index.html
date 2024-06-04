@@ -83,32 +83,13 @@
         <h4 class="space">本網站透過串接中央氣象局API，將氣象顯示變得淺顯易懂，讓使用者也能清楚了解天氣。</h4>
         <div class="content glass-card">
             <h4>請選擇您要顯示的城市，以開始使用 Weather Forecast</h4>
-            <select class="form-select" aria-label="Default select example">
-                <option selected>選擇城市</option>
-                <option value="keelung">基隆市</option>
-                <option value="taipei">臺北市</option>
-                <option value="newtaipei">新北市</option>
-                <option value="taoyuan">桃園市</option>
-                <option value="hsinchucity">新竹市</option>
-                <option value="hsinchucounty">新竹縣</option>
-                <option value="miaoli">苗栗縣</option>
-                <option value="taichung">臺中市</option>
-                <option value="changhua">彰化縣</option>
-                <option value="nantou">南投縣</option>
-                <option value="yunlin">雲林縣</option>
-                <option value="chiayicity">嘉義市</option>
-                <option value="chiayicounty">嘉義縣</option>
-                <option value="tainan">臺南市</option>
-                <option value="kaohsiung">高雄市</option>
-                <option value="pingtung">屏東縣</option>
-                <option value="yilan">宜蘭縣</option>
-                <option value="hualien">花蓮縣</option>
-                <option value="taitung">臺東縣</option>
-                <option value="penghu">澎湖縣</option>
-                <option value="kinmen">金門縣</option>
-                <option value="lienchiang">連江縣</option>
+            <select class="form-select" id="changeCountySelect">
+                <option value="" selected>選擇城市</option>
+                {% for county in counties %}
+                    <option value="{{ county }}">{{ county }}</option>
+                {% endfor %}
             </select>
-            <button type="button" class="btn btn-outline-success space">開始使用吧！</button>
+            <button type="button" class="btn btn-outline-success space" onclick="start()">開始使用吧！</button>
             <!-- 依照選擇跳轉到對應城市 -->
         </div>
     </div>
@@ -122,6 +103,11 @@
         setTimeout(() => {
             content.classList.add('visible');
         }, 1000);
+    }
+
+    function start() {
+        const changeCountySelect = document.getElementById('changeCountySelect');
+        if(changeCountySelect.value) window.location.href = '/county/details/' + changeCountySelect.value;
     }
 </script>
 {% endblock %}

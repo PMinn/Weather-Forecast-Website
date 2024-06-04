@@ -106,22 +106,22 @@
             </select>
         </div>
         <div class="col-2">
-            {% if user %}
+            {% if userProfile %}
                 <div class="btn-group dropstart">
                     <button type="button" class="btn btn-secondary dropdown-toggle round-button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{user.avatar.url}}" alt="Profile Image">
+                        <img src="{{userProfile.avatar.url}}" alt="Profile Image">
                         <!-- User頭貼 -->
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="UserDash.html">個人儀錶板</a></li>
+                        <li><a class="dropdown-item" href="/user/dashboard">個人儀錶板</a></li>
                         <!-- 跳轉到UserDash.html -->
-                        <li><a class="dropdown-item" href="Weather.html">登出</a></li>
+                        <li><a class="dropdown-item" href="/user/login">登出</a></li>
 
                     </ul>
                 </div>
             {% else %}
-                <button type="button" class="btn btn-light" onclick="">登入</button>
+                <a type="button" class="btn btn-light" href="/user/login">登入</a>
                 <!-- 登入與登出按鈕 -->
             {% endif %}
         </div>
@@ -151,7 +151,7 @@
                     {% if weather.Now.Precipitation >= 0 %}
                     <p>{{weather.Now.Precipitation}}毫米</p>
                     {% else %}
-                    <p>0</p>
+                    <p>無資料</p>
                     {% endif %}
                     <!-- <p>放置降雨機率</p> -->
                 </div>

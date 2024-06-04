@@ -27,10 +27,6 @@ def login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 auth.login(request, user)
-                # context = {
-                #     'user': request.user,
-                #     'message': 'login ok'
-                # }
                 return redirect('/')
             else:
                 err_login_msg = 'Login failed (user id/passworld not correct)'
@@ -52,7 +48,8 @@ def dashboard(request):
         if request.method == 'GET':
             user, _ = UserProfile.objects.get_or_create(user=request.user)
             form = UpdateUserProfileForm()
-            print(form)
+            form.fields['username'].initial = user.user.username
+            form.fields['defaultCounty'].initial = user.defaultCounty
             return render(request, 'dashboard.html', {'form': form, 'user': user})
         elif request.method == 'POST':
             form = UpdateUserProfileForm(request.POST, request.FILES)
@@ -63,10 +60,10 @@ def dashboard(request):
                 if form.cleaned_data['avatar']:
                     userProfile.avatar = form.cleaned_data['avatar']
                     needSave = True
-                if form.cleaned_data['username'] != '':
+                if form.cleaned_data['username'] != '' and form.cleaned_data['username'] != user.username:
                     user.username = form.cleaned_data['username']
                     needSave = True
-                if form.cleaned_data['defaultCounty'] != '':
+                if form.cleaned_data['defaultCounty'] != '' and form.cleaned_data['defaultCounty'] != userProfile.defaultCounty:
                     userProfile.defaultCounty = form.cleaned_data['defaultCounty']
                     needSave = True
                 if form.cleaned_data['password'] != '' and form.cleaned_data['password_confirm'] != '' and form.cleaned_data['password'] == form.cleaned_data['password_confirm']:
@@ -76,11 +73,13 @@ def dashboard(request):
                     user.save()
                     userProfile.save()
                 form = UpdateUserProfileForm()
-                return render(request, 'dashboard.html', {'form': form, 'user': userProfile})
+                form.fields['username'].initial = user.username
+                form.fields['defaultCounty'].initial = userProfile.defaultCounty
+                return render(request, 'dashboard.html', {'form': form, 'user': userProfile, 'success_message': '更新成功'})
             else:
                 return render(request, 'dashboard.html', {'form': form, 'user': user, 'err_message': '表單驗證錯誤'})
     else:
-        return redirect('/login')
+        return redirect('/user/login')
 
 
 def signup(request):

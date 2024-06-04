@@ -7,13 +7,17 @@ from datetime import datetime, timezone, timedelta, date
 import math
 from django.contrib.auth.models import User
 from user.models import UserProfile
+from .counties import counties
 
 weekdayNames = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"]
 
 
 def index(request):
-    template = loader.get_template('index.html')
-    return HttpResponse(template.render())
+    if request.user.is_authenticated:
+        user = User.objects.get(username=request.user.username)
+        userProfile, _ = UserProfile.objects.get_or_create(user=user)
+        return redirect(f'/county/details/{userProfile.defaultCounty}')
+    return render(request, 'index.html', {'counties': counties})
 
 
 class WeatherForecast:
@@ -29,7 +33,7 @@ class WeatherForecast:
             self.weekday = "後天"
         else:
             self.weekday = weekdayNames[(
-                date.today() + timedelta(days=i+1)).weekday()]
+                date.today() + timedelta(days=i)).weekday()]
 
     def updateWx(self, Wx):
         self.Wx = Wx
@@ -102,9 +106,7 @@ def county_details(request, county):
         "counties": map(lambda x: x['locationName'], json['cwaopendata']['dataset']['location'])
     }
     if request.user.is_authenticated:
-        # user = User.objects.get(username=request.user.username)
-        data['user'], _ = UserProfile.objects.get_or_create(user=request.user)
-        # data['user'] = request.user
+        data['userProfile'], _ = UserProfile.objects.get_or_create(user=request.user)
     for location in json['cwaopendata']['dataset']['location']:
         if location['locationName'] == county:
             weatherElement = location['weatherElement']
@@ -134,7 +136,7 @@ def county_details(request, county):
         json = result.json()
         if json['success'] == 'true':
             for station in json['records']['Station']:
-                if(station['GeoInfo']['CountyName'] == county):
+                if (station['GeoInfo']['CountyName'] == county):
                     weatherElement = station['WeatherElement']
                     data['weather'] = weatherDataProcessing(weatherElement)
                     isSuccess = True

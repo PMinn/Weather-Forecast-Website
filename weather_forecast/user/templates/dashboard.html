@@ -76,7 +76,7 @@
 <div class="container">
     <div class="row justify-content-center align-items-center space">
         <h1 class="col-10">個人儀表板</h1>
-        <button type="button" class="btn btn-light col-1">回首頁</button>
+        <a href="/" class="btn btn-light col-1">回首頁</a>
     </div>
     
     <div class="row justify-content-center">
@@ -112,31 +112,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">預設顯示城市</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>選擇城市</option>
-                        <option value="keelung">基隆市</option>
-                        <option value="taipei">臺北市</option>
-                        <option value="newtaipei">新北市</option>
-                        <option value="taoyuan">桃園市</option>
-                        <option value="hsinchucity">新竹市</option>
-                        <option value="hsinchucounty">新竹縣</option>
-                        <option value="miaoli">苗栗縣</option>
-                        <option value="taichung">臺中市</option>
-                        <option value="changhua">彰化縣</option>
-                        <option value="nantou">南投縣</option>
-                        <option value="yunlin">雲林縣</option>
-                        <option value="chiayicity">嘉義市</option>
-                        <option value="chiayicounty">嘉義縣</option>
-                        <option value="tainan">臺南市</option>
-                        <option value="kaohsiung">高雄市</option>
-                        <option value="pingtung">屏東縣</option>
-                        <option value="yilan">宜蘭縣</option>
-                        <option value="hualien">花蓮縣</option>
-                        <option value="taitung">臺東縣</option>
-                        <option value="penghu">澎湖縣</option>
-                        <option value="kinmen">金門縣</option>
-                        <option value="lienchiang">連江縣</option>
-                    </select>
+                    {{ form.defaultCounty }}
                 </div>
                 <div class="mb-3">
                     <label for="newPassword" class="form-label">修改密碼</label>
@@ -144,11 +120,14 @@
                 </div>
                 <div class="mb-3">
                     <label for="confirmPassword" class="form-label">確認新密碼</label>
-                    <input type="password" class="form-control" id="confirmPassword" placeholder="確認新密碼">
+                    {{ form.password_confirm }}
                 </div>
                 <button type="submit" class="btn btn-outline-dark">修改</button>
+                {% if success_message %}
+                    <div class="alert alert-success" role="alert">{{ success_message }}</div>
+                {% endif %}
                 {% if err_message %}
-                <p class="text-danger">{{ err_message }}</p>
+                    <div class="alert alert-danger" role="alert">{{ err_message }}</div>
                 {% endif %}
             </form>
         </div>
