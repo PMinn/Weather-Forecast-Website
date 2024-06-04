@@ -1,9 +1,29 @@
 # Weather-Forecast-Website
 
-## 依賴套件
+## 初始化專案
+
+### 1. 安裝依賴套件
+    # Django
+    pip install django
+
+    # 串接 API
     pip install requests
 
-## 設定環境變數
-新增檔案 weather_forecast/weather/env.py
+    # 上傳圖片
+    pip install pillow
 
-    cwa_apikey = "<氣象開放平台的 apikey>"
+### 2. 設定環境變數
+新增檔案： weather_forecast/weather/env.py
+
+env.py 的內容：
+
+    cwa_apikey = "氣象開放平台的 apikey"
+
+## 截圖
+![alt text](./demo/1.jpeg "Title")
+![alt text](./demo/2.jpeg "Title")
+![alt text](./demo/3.jpeg "Title")
+![alt text](./demo/4.jpeg "Title")
+![alt text](./demo/5.jpeg "Title")
+![alt text](./demo/6.jpeg "Title")
+![alt text](./demo/7.jpeg "Title")

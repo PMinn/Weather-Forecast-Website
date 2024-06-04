@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block title %}登入{% endblock %}
+
+{% block styles %}
+<style>
+    body {
+        background: linear-gradient(90deg, #edc0bf 0, #c4caef 58%) no-repeat center center fixed;
+        background-size: cover;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    label {
+        color: #742CB6;
+        margin-top: 15px;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    button,
+    .signup,
+    .alert {
+        margin-top: 25px;
+    }
+
+    .glass-card {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 15px;
+        padding: 20px;
+        margin: 10px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="glass-card">
+    {% if request.user.is_authenticated %}
+        <a class="btn btn-light" href="{% url 'logout' %}">Logout</a>
+    {% else %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">使用者名稱</label>
+                {{ login_form.username }}
+            </div>
+            <div class="form-group">
+                <label for="Password">密碼</label>
+                {{ login_form.password }}
+            </div>
+            <button type="submit" class="btn btn-light">登入</button>
+            <!-- 正確則跳轉到UserDash.html -->
+        </form>
+        <a class="btn btn-outline-secondary signup" href="{% url 'signup' %}">沒有帳號？請註冊</a>
+        <!-- 跳轉到SignUp.html -->
+        {% if err_login_msg %}
+            <div class="alert alert-danger" role="alert">
+                {{ err_login_msg }}
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

@@ -2,8 +2,112 @@
 
 {% block title %}Weather-Forecast{% endblock %}
 
+{% block styles %}
+<style>
+    body {
+        background: linear-gradient(90deg, #edc0bf 0, #c4caef 58%) no-repeat center center fixed;
+        background-size: cover;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        color: #ac34db;
+        font-weight: bolder;
+        text-align: left;
+    }
+
+    h4 {
+        color: #742CB6;
+        margin-bottom: 15px;
+        text-align: left;
+        font-size: large;
+    }
+
+    .space {
+        margin-top: 25px;
+        margin-bottom: 10px;
+    }
+
+    .glass-card {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 15px;
+        padding: 20px;
+        margin: 10px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        text-align: center;
+    }
+
+    .glass-card h4 {
+        color: #742CB6;
+        margin-bottom: 15px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .glass-card h5 {
+        color: #742CB6;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .glass-card i,
+    p {
+        color: #2d0255;
+        font-weight: bolder;
+        font-size: xx-large;
+    }
+
+    .content {
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+    }
+
+    .visible {
+        opacity: 1;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
-<h1>
-    這是首頁
-</h1>
+<div class="container">
+    <div class="row justify-content-center align-items-center mb-4 space">
+        <h1>歡迎使用 Weather Forecast</h1>
+        <h4 class="space">本網站透過串接中央氣象局API，將氣象顯示變得淺顯易懂，讓使用者也能清楚了解天氣。</h4>
+        <div class="content glass-card">
+            <h4>請選擇您要顯示的城市，以開始使用 Weather Forecast</h4>
+            <select class="form-select" id="changeCountySelect">
+                <option value="" selected>選擇城市</option>
+                {% for county in counties %}
+                    <option value="{{ county }}">{{ county }}</option>
+                {% endfor %}
+            </select>
+            <button type="button" class="btn btn-outline-success space" onclick="start()">開始使用吧！</button>
+            <!-- 依照選擇跳轉到對應城市 -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    window.onload = function () {
+        const content = document.querySelector('.content');
+        setTimeout(() => {
+            content.classList.add('visible');
+        }, 1000);
+    }
+
+    function start() {
+        const changeCountySelect = document.getElementById('changeCountySelect');
+        if(changeCountySelect.value) window.location.href = '/county/details/' + changeCountySelect.value;
+    }
+</script>
 {% endblock %}
