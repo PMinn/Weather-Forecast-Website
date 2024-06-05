@@ -74,8 +74,7 @@ def dashboard(request):
                 if success_fields.__len__() > 0:
                     user.save()
                     userProfile.save()
-                    context['success_message'] = f'更新成功({
-                        ", ".join(success_fields)})'
+                    context['success_message'] = f'更新成功({", ".join(success_fields)})'
                 if error_fields.__len__() > 0:
                     context['err_message'] = f'更新失敗({", ".join(error_fields)})'
                 renderForm = UpdateUserProfileForm()
