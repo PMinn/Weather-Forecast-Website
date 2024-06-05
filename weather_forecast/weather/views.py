@@ -16,7 +16,7 @@ def index(request):
     if request.user.is_authenticated:
         user = User.objects.get(username=request.user.username)
         userProfile, _ = UserProfile.objects.get_or_create(user=user)
-        return redirect(f'/county/details/{userProfile.defaultCounty}')
+        return county_details(request, userProfile.defaultCounty)
     return render(request, 'index.html', {'counties': counties})
 
 
