@@ -77,12 +77,12 @@
 {% block content %}
 <div class="container">
     <div class="row justify-content-center align-items-center space">
-        <h1 class="col-10">個人儀表板</h1>
-        <a href="/" class="btn btn-light col-1">回首頁</a>
+        <h1 class="col-md-10 col-6">個人儀表板</h1>
+        <a href="/" class="btn btn-light col-md-1 col-4">回首頁</a>
     </div>
     
     <div class="row justify-content-center">
-        <div class="glass-card col-7">
+        <div class="glass-card col-md-7 col-10">
             <div class="row">
                 <div class="col-6">
                     <img class="rounded-circle" src="{{user.avatar.url}}" alt="Profile Image">
@@ -100,7 +100,7 @@
                 <!-- 顯示預設城市設定值 -->
             </div>
         </div>
-        <div class="glass-card col-4">
+        <div class="glass-card col-md-4 col-10">
             <h4>個人資料修改</h4>
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
