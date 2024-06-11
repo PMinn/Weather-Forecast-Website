@@ -87,13 +87,19 @@
     .dropdown-menu {
         min-width: 10rem;
     }
+
+    @media screen and (max-width: 768px) {
+        .glass-card i, p {
+            font-size: large;
+        }
+    }
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="row justify-content-center align-items-center mb-4 space">
-        <h1 class="col-6">Weather Forecast</h1>
+        <h1 class="col-5 col-md-6">Weather Forecast</h1>
         <div class="col-4">
             <select class="form-select" id="changeCountySelect">
                 {% for county in counties %}
@@ -105,7 +111,7 @@
                 {% endfor %}
             </select>
         </div>
-        <div class="col-2">
+        <div class="col-3 col-md-2">
             {% if userProfile %}
                 <div class="btn-group dropstart">
                     <button type="button" class="btn btn-secondary dropdown-toggle round-button"
@@ -128,7 +134,7 @@
     </div>
 
     <div class="space row justify-content-center">
-        <div class="glass-card col-5">
+        <div class="glass-card col-md-5 col-10">
             <h4>現在溫度</h4>
             <div class="row">
                 <div class="col-6">
@@ -143,7 +149,7 @@
                 </div>
             </div>
         </div>
-        <div class="glass-card col-5">
+        <div class="glass-card col-md-5 col-10">
             <h4>現在天氣</h4>
             <div class="row">
                 <div class="col-6">
@@ -166,7 +172,7 @@
     </div>
 
     <div class="row justify-content-center">
-        <div class="glass-card col-5">
+        <div class="glass-card col-md-5 col-10">
             <h4>今日</h4>
             <div class="row">
                 <div class="col-6">
@@ -182,7 +188,7 @@
                 </div>
             </div>
         </div>
-        <div class="glass-card col-5">
+        <div class="glass-card col-md-5 col-10">
             <h4>明日</h4>
             <div class="row">
                 <div class="col-6">
@@ -202,38 +208,38 @@
 
     <div class="space row justify-content-center">
         <h4>一週預報</h4>
-        <div class="row glass-card col-10">
-            <div class="col-2">
+        <div class="row glass-card col-10 gap-5">
+            <div class="col-md-2 col-12">
                 <h5>{{weatherForecast.1.weekday}}</h5>
                 <p class="small">{{weatherForecast.1.MinT}}~{{weatherForecast.1.MaxT}}℃</p>
                 <i class="bi bi-{{weatherForecast.1.weatherIcon}}"></i>
                 <!-- <p>放置溫度範圍、天氣情況</p> -->
             </div>
-            <div class="col-2">
+            <div class="col-md-2 col-12">
                 <h5>{{weatherForecast.2.weekday}}</h5>
                 <p class="small">{{weatherForecast.2.MinT}}~{{weatherForecast.2.MaxT}}℃</p>
                 <i class="bi bi-{{weatherForecast.2.weatherIcon}}"></i>
                 <!-- <p>放置溫度範圍、天氣情況</p> -->
             </div>
-            <div class="col-2">
+            <div class="col-md-2 col-12">
                 <h5>{{weatherForecast.3.weekday}}</h5>
                 <p class="small">{{weatherForecast.3.MinT}}~{{weatherForecast.3.MaxT}}℃</p>
                 <i class="bi bi-{{weatherForecast.3.weatherIcon}}"></i>
                 <!-- <p>放置溫度範圍、天氣情況</p> -->
             </div>
-            <div class="col-2">
+            <div class="col-md-2 col-12">
                 <h5>{{weatherForecast.4.weekday}}</h5>
                 <p class="small">{{weatherForecast.4.MinT}}~{{weatherForecast.4.MaxT}}℃</p>
                 <i class="bi bi-{{weatherForecast.5.weatherIcon}}"></i>
                 <!-- <p>放置溫度範圍、天氣情況</p> -->
             </div>
-            <div class="col-2">
+            <div class="col-md-2 col-12">
                 <h5>{{weatherForecast.5.weekday}}</h5>
                 <p class="small">{{weatherForecast.5.MinT}}~{{weatherForecast.5.MaxT}}℃</p>
                 <i class="bi bi-{{weatherForecast.5.weatherIcon}}"></i>
                 <!-- <p>放置溫度範圍、天氣情況</p> -->
             </div>
-            <div class="col-2">
+            <div class="col-md-2 col-12">
                 <h5>{{weatherForecast.6.weekday}}</h5>
                 <p class="small">{{weatherForecast.6.MinT}}~{{weatherForecast.6.MaxT}}℃</p>
                 <i class="bi bi-{{weatherForecast.6.weatherIcon}}"></i>
